@@ -2,6 +2,7 @@ import { compare } from "bcryptjs";
 import { Auth } from "../interface/auth.interface";
 import UserModel from "../models/user";
 import { encrypt, verify } from "../utils/passwordHash";
+import { singToken } from "../utils/jwt";
 
 const registerNewUser = async (authUser: Auth) => {
   const { email, password } = authUser;
@@ -25,10 +26,13 @@ const loginUser = async ({ email, password }: Auth) => {
   const correctPassword = await verify(password, user.password);
 
   if (!correctPassword) return "Wrong password";
+  const token = singToken(user.email);
+  const data = {
+    user,
+    token,
+  };
 
-  return user;
-
-  // const token = jwt.sign({ id: user._id }
+  return data;
 };
 
 export { registerNewUser, loginUser };

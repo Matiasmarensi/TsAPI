@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/", getItems);
 router.get("/:id", auth, getItem);
-router.put("/:id", updateItem);
-router.post("/", postItem);
+router.put("/:id", auth, updateItem);
+router.post("/", auth, postItem);
 
 export { router };

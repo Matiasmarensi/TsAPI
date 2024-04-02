@@ -14,8 +14,7 @@ const login = async (req: Request, res: Response) => {
   const user = await loginUser({ email, password });
   if (user === "User not found" || user === "Wrong password") {
     return res.status(403).send({ message: user });
-  }
-  res.send({ user, message: "Login successful" });
+  } else res.send({ user, message: "Login successful" });
 };
 
 export { register, login };
